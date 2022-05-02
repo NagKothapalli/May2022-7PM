@@ -6,7 +6,7 @@ package basicConcepts;
  //Non-Access : static , final
 public class CoreConcepts
 {
-	//Members : Variables   / Functions
+	//Members : Variables   / Functions | Methods
 //Signature : VARIABLE
 	//Modifier[opt]   DataType  Name ; - Declaration        Modifier   DataType  Name = value ;  - Assignment
 	public static String   collegeName = "JNTU";
