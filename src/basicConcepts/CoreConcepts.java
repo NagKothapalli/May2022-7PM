@@ -23,11 +23,26 @@ public class CoreConcepts
   {
 	  System.out.println("Welcome to Selenium Java");
 	  addition();
+	  addition(44,66);
+	  addition(414,646);
+	  addition(44,22,88);
+	  addition(44,272,838);
   }
-  public static void addition()
+  public static void addition() //Method overloading - compile time || static polymorphism
   {
-	  int sum = 22+25;
+	  int sum = 22+25; //fixed  - hard coded values
 	  System.out.println("Sum of two numbers :" + sum);
+  }
+  
+  public static void addition(int a, int b)
+  {
+	  int sum = a + b;
+	  System.out.println("Sum of two number [with two inputs] :" + sum);
+  }
+  public static void addition(int a, int b,int c)
+  {
+	  int sum = a + b + c;
+	  System.out.println("Sum of three number [with three inputs] :" + sum);
   }
 	        
 
