@@ -19,15 +19,24 @@ public class CoreConcepts
   //Modifier[opt] ReturnType  Name(inputs....[opt]){ body }    - concrete function   - class
   //Modifier[opt] ReturnType  Name(inputs....[opt]); - abstract function  - interface
 //psvm
-  public static void main(String[] args)
+  public static void main(String[] args)   // yourclassname.main();  xxxxxx.main()
   {
 	  System.out.println("Welcome to Selenium Java");
-	  addition();
-	  addition(44,66);
-	  addition(414,646);
-	  addition(44,22,88);
-	  addition(44,272,838);
+	  //addition();
+	  //addition(44,66);
+	  //addition(414,646);
+	  //addition(44,22,88);
+	  //addition(44,272,838);
+	  int gross = addition(44,272,838,56);
+	  int netSal = gross - 200 ;
+	  System.out.println("Payslip : NetSalary :" + netSal);
+	  //return netSal;
   }
+  //Naming Conventions for member of a class  [ Variable / Function ]
+  //Member of a class can start with _ , $ , a-z , A-Z , It should follow camelCasing
+  int _stdNum;  int $stdNum;  int stdNum; int StdNum;
+  int std_Num;  int stdNum_;  int std$Num; int stdNum$;
+  int std1Num;  int stdNum1;
   public static void addition() //Method overloading - compile time || static polymorphism
   {
 	  int sum = 22+25; //fixed  - hard coded values
@@ -44,6 +53,14 @@ public class CoreConcepts
 	  int sum = a + b + c;
 	  System.out.println("Sum of three number [with three inputs] :" + sum);
   }
+  
+  public static int addition(int a, int b,int c,int d)
+  {
+	  int sum = a + b + c + d;
+	  sum = sum + 100 ;
+	  return sum; //door closed	  
+  }
+	  
 	        
 
 }
