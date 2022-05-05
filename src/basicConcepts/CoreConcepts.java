@@ -19,8 +19,21 @@ public class CoreConcepts
   //Modifier[opt] ReturnType  Name(inputs....[opt]){ body }    - concrete function   - class
   //Modifier[opt] ReturnType  Name(inputs....[opt]); - abstract function  - interface
 //psvm
-  public static void main(String[] args)   // yourclassname.main();  xxxxxx.main()
-  {
+  public static void main(String[] inputs)   // yourclassname.main();  xxxxxx.main()
+  {	  
+	  System.out.println("Welcome to Selenium Java");
+	  //addition();
+	  //addition(44,66);
+	  //addition(414,646);
+	  //addition(44,22,88);
+	  //addition(44,272,838);
+	  int gross = addition(44,272,838,56);
+	  int netSal = gross - 200 ;
+	  System.out.println("Payslip : NetSalary :" + netSal);
+	  //return netSal;
+  }
+  public static void main(String[] inputs,int num)   // yourclassname.main();  xxxxxx.main()
+  {	  
 	  System.out.println("Welcome to Selenium Java");
 	  //addition();
 	  //addition(44,66);
