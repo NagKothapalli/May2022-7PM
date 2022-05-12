@@ -59,11 +59,61 @@ public class StringOperations
 	}
 	
 	//charAt , split , concat
+	//Write a program to read a string as input and find count of a particular char
+	@Test
+	public void characterAt()
+	{
+		int count =0;
+		String a = "Selenium Automation With Java   ";		
+		char c0 = a.charAt(0);
+		System.out.println("Chat at 0 index :" + c0);
+		int len = a.trim().length();
+		for(int i=0;i<len;i++)
+		{
+			char ci = a.trim().charAt(i); // i = 0 1 2 3 4 5
+			System.out.println("char at place :" + i + " , char is :" + ci);
+			if(ci == 'e')
+			{
+				count++;
+			}
+		}
+		System.out.println("Count of char e :" + count);
+	}
+	//two mnts
+	@Test
+	public void characterAt_Test()
+	{
+		characterAt("Welcome to Java",'a');
+		characterAt("Welcome to Python",'w');
+	}
+	public void characterAt(String input,char charToFind)
+	{
+		int count =0;
+		int len = input.trim().length();
+		for(int i=0;i<len;i++)
+		{
+			char ci = input.trim().toLowerCase().charAt(i); // i = 0 1 2 3 4 5
+			//System.out.println("char at place :" + i + " , char is :" + ci);
+			if(ci == charToFind)
+			{
+				count++;
+			}
+		}
+		System.out.println("In the given string --  "+input+ " --  Count of char " + charToFind + " is :" + count);
+	}
+	@Test
+	public void concatenation()
+	{
+		String d = a.concat(b).concat(c);
+		System.out.println(d);
+		System.out.println(a+b+c);
+	}
 	
-	
-	
-	
-	
+	public void split()
+	{
+		String a = "Selenium With Java";
+		//array
+	}
 	
 	
 	
