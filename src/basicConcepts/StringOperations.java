@@ -28,6 +28,14 @@ public class StringOperations
 		System.out.println("a08 :" + a08);
 	}
 	@Test
+	public void stringConcatenation()
+	{
+		//int+int -> int , int+string |  string+int | string+string -> string
+		System.out.println(2+"Ram"+4); //2Ram4
+		System.out.println("Ram"+2+4);  //Ram24
+		System.out.println(2+4+"Ram"); //6Ram
+	}
+	@Test
 	public void contains()
 	{
 		//boolean result = a.trim().contains(b);
