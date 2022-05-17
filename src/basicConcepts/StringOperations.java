@@ -116,10 +116,16 @@ public class StringOperations
 		System.out.println(d);
 		System.out.println(a+b+c);
 	}
-	
-	public void split()
+	@Test
+	public void splitOperation()
 	{
-		String a = "Selenium With Java";
+		String a = "    Selenium-With-Java   ";
+		String[] arr = a.trim().split("-");
+		for(int i=0;i<arr.length;i++)
+		{
+			System.out.println(arr[i]);
+		}
+		System.out.println("Technology :" + arr[2]);
 		//array
 	}
 	
