@@ -4,6 +4,14 @@ import org.junit.Test;
 
 public class ReusableComponents
 {
+	public String empName = "Ram";//null
+	public ReusableComponents()
+	{
+		System.out.println("Employee Name :"+ empName);
+		System.out.println("Default constructor of ReusableComponents");
+		System.out.println("Clear the Cache");
+		System.out.println("Delete Temp records in data base");
+	}
 	//********************Reusable Components ********************
 	protected void launchApplication()
 	{

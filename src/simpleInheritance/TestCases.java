@@ -4,6 +4,13 @@ import org.junit.Test;
 //             Child               Parent   -> Simple Inheritance
 public class TestCases extends ReusableComponents
 {
+	public String stdName = "Raj";
+	public TestCases()
+	{
+		System.out.println("Student Name :" + stdName);
+		System.out.println("Default constructor of TestCases");
+	}
+	
 	/*
 	 * public void launchApplication() {
 	 * System.out.println("RC : Launch Application from TC"); }

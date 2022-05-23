@@ -4,10 +4,31 @@ import org.junit.Test;
 
 public class ReusableComponents
 {
+	//Execution Sequence : Instance variables -> Block -> Constructor of the class called by the user[child class]
+	String empName = "Ram";
+	//Block
+	{
+		System.out.println("Employee Name :" + empName);
+		System.out.println("Clear the Cache"); //Write the respective java code to clear cache
+		System.out.println("Delete Temp records in data base");
+	}
 	public ReusableComponents()
 	{
-		System.out.println("Clear the Cache");
-		System.out.println("Delete Temp records in data base");
+		//System.out.println("Clear the Cache");
+		//System.out.println("Delete Temp records in data base");
+		System.out.println("Open Defult Browser : Google Chrome");
+	}
+	public ReusableComponents(String browser)
+	{
+		//System.out.println("Clear the Cache");
+		//System.out.println("Delete Temp records in data base");
+		System.out.println("Open Browser of user Choice : " + browser); // we have to write the logic with if else statements
+	}
+	public ReusableComponents(String browser,int version)
+	{
+		//System.out.println("Clear the Cache");
+		//System.out.println("Delete Temp records in data base");
+		System.out.println("Open Browser of user Choice : " + browser  +   "   With Version :" + version); // we have to write the logic with if else statements
 	}
 	//********************Reusable Components ********************
 	protected void launchApplication()

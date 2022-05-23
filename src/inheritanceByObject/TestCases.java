@@ -6,7 +6,8 @@ public class TestCases //extends ReusableComponents
 {
 	//Modifier[opt]  ClassName      objName  = new Constructor();
 	   public    ReusableComponents  rc      = new ReusableComponents();//1  //property
-	   public    ReusableComponents  rc1      = new ReusableComponents();//2 int num = 22; //property
+	   //public    ReusableComponents  rc      = new ReusableComponents("ie");//2 int num = 22; //property
+	   //public    ReusableComponents  rc      = new ReusableComponents("chrome",100);
 	/*
 	 * public void launchApplication() {
 	 * System.out.println("RC : Launch Application from TC"); }
