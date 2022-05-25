@@ -1,6 +1,6 @@
 package myInterface;
 
-public interface ICalculator
+public interface ArithemeticOperations
 {
 	public int addition(int a,int b);
 	public int subtraction(int a,int b);
