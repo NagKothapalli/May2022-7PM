@@ -71,30 +71,69 @@ public class GmailAutomation
 		 */
 		
 	}
-	//WebDriver : get , getUrl , getTitle , getWindowHandle
+	//WebDriver : get , getUrl , getTitle , getWindowHandle , findElement , findElements 
+	//By  : id , name , class , cssSelector , linkText , partialLinkText , tagName , Xpath
 	//WebElement : click , clear , sendkeys , getText , getAttribute [ label , value ....]
-	@Test
+	//Full  / Static / Absolute  xpath
+	//Realtive xpath - just like SQL select query
+	
+	//tagName[@attribute = 'value']            //tagName[contains(@attribute , 'partial value')]
+	
+	//tagName[text()= 'value']                 //tagName[contains(text(), 'partial value')]
+	
+	//*[@attribute = 'value']                  //*[contains(@attribute , 'partial value')]
+	
+	//*[text()= 'value']                      //*[contains(text(), 'partial value')]
+	
+	@Test   
 	public void createAccount() throws InterruptedException
 	{
 		launchApplication();
-		List<WebElement> elements = driver.findElements(By.className("VfPpkd-vQzf8d"));
-		//elements.get(2).click();
-		for(int i=0;i<elements.size();i++)
-		{
-			WebElement element = elements.get(i);
-			String txt = element.getText();  System.out.println("Text on the object :" + txt);
-			if(txt.equals("Create account"))
-			{
-				elements.get(i).click();
-				break;
-			}
-		}
+		//Full  / Static / Absolute  xpath
+		// /html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button/span
+		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button/span")).click();
+		driver.findElement(By.xpath("//span[text()='Create account']")).click();
+		/*
+		 * List<WebElement> elements =
+		 * driver.findElements(By.className("VfPpkd-vQzf8d"));
+		 * //elements.get(2).click(); for(int i=0;i<elements.size();i++) { WebElement
+		 * element = elements.get(i); String txt = element.getText();
+		 * System.out.println("Text on the object :" + txt);
+		 * if(txt.equals("Create account")) { elements.get(i).click(); break; } }
+		 */
+	}
+	@Test
+	public void forgotEmail() throws InterruptedException
+	{
+		launchApplication();
+		//driver.findElement(By.tagName("button")).click(); //Forgot email?
+		driver.findElement(By.xpath("//button[@jsname='Cuz2Ue']")).click();
+		/*
+		 * List<WebElement> elements = driver.findElements(By.tagName("button"));
+		 * for(int i=0;i<elements.size();i++) { WebElement element = elements.get(i);
+		 * String txt = element.getText(); System.out.println("Text on the object :" +
+		 * txt); if(txt.equals("Forgot email?")) { elements.get(i).click(); break; } }
+		 */
 	}
 	
 	
-	
-	
-	
+	@Test
+	public void learnMore() throws InterruptedException
+	{
+		launchApplication();
+		//driver.findElement(By.linkText("Learn more")).click();
+		//driver.findElement(By.partialLinkText("Learn")).click();
+		//driver.findElement(By.tagName("button")).click(); //Forgot email?
+		//driver.findElement(By.xpath("//a[@jsname='JFyozc']")).click();
+		//driver.findElement(By.xpath("//a[text()='Learn more']")).click();
+		driver.findElement(By.xpath("//a[contains(text(),'Learn')]")).click();
+		/*
+		 * List<WebElement> elements = driver.findElements(By.tagName("a")); for(int
+		 * i=0;i<elements.size();i++) { WebElement element = elements.get(i); String txt
+		 * = element.getText(); System.out.println("Text on the object :" + txt);
+		 * if(txt.equals("Learn more")) { elements.get(i).click(); break; } }
+		 */
+	}
 	
 	
 	
