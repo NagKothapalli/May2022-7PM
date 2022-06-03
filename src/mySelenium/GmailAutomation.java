@@ -2,6 +2,7 @@ package mySelenium;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,7 +20,7 @@ public class GmailAutomation
 		System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\JarFiles\\chromedriver-win32-90\\chromedriver.exe");
 		driver = new ChromeDriver(); //it will open an empty browser
 	}
-	@Test
+	@Before
 	public void launchApplication() throws InterruptedException
 	{
 		System.out.println("RC : Launch Application");
@@ -38,17 +39,26 @@ public class GmailAutomation
 		
 	}
 	//NoSuchElementException
+	//WebDriver : get , getUrl , getTitle , getWindowHandle , findElement , findElements 
+		//By  : id , name , class , cssSelector , linkText , partialLinkText , tagName , Xpath
+		//WebElement : click , clear , sendkeys , getText , getAttribute [ label , value ....]
 	@Test
 	public void loginToApplication() throws InterruptedException
 	{
-		launchApplication();
-		/*
-		 * WebElement emailObj = driver.findElement(By.name("identifier"));
-		 * emailObj.click(); emailObj.sendKeys("dfsfdds"); Thread.sleep(1000);
-		 * emailObj.clear(); Thread.sleep(1000); emailObj.sendKeys("nag022@gmail.com");
-		 */
+		  //launchApplication();
+		  //driver : is object of WebDriver
+		  // By byobj = new By();  we cant create the object of By class , as By is a abstract class
+		  By byobj = By.name("identifier");
+		  WebElement emailObj = driver.findElement(byobj);
+		  emailObj.click(); 
+		  emailObj.sendKeys("dfsfdds"); 
+		  Thread.sleep(1000);
+		  emailObj.clear(); Thread.sleep(1000); 
+		  emailObj.sendKeys("nag022@gmail.com");		 
 		
-		driver.findElement(By.id("identifierId")).sendKeys("nag022@gmail.com");
+		//driver.findElement(By.id("identifierId")).sendKeys("nag022@gmail.com");
+		  
+		//driver.findElement(By.xpath("//input[@id='identifierId' or @name='identifier']")).sendKeys("nag022@gmail.com");
 		List<WebElement> elements = driver.findElements(By.className("VfPpkd-vQzf8d"));
 		//elements.get(2).click();
 		for(int i=0;i<elements.size();i++)
@@ -74,7 +84,9 @@ public class GmailAutomation
 	//WebDriver : get , getUrl , getTitle , getWindowHandle , findElement , findElements 
 	//By  : id , name , class , cssSelector , linkText , partialLinkText , tagName , Xpath
 	//WebElement : click , clear , sendkeys , getText , getAttribute [ label , value ....]
+	
 	//Full  / Static / Absolute  xpath
+	
 	//Realtive xpath - just like SQL select query
 	
 	//tagName[@attribute = 'value']            //tagName[contains(@attribute , 'partial value')]
@@ -85,14 +97,23 @@ public class GmailAutomation
 	
 	//*[text()= 'value']                      //*[contains(text(), 'partial value')]
 	
+	//tagName[@attribute1 = 'value1' and @attribute2 = 'value2']
+	
+	//tagName[text()= 'value' and @attribute1 = 'value1'] 
+	
+	//tagName[@attribute1 = 'value1' or @attribute2 = 'value2']
+	
+	//tagName[text()= 'value' or @attribute1 = 'value1'] 
+	
 	@Test   
 	public void createAccount() throws InterruptedException
 	{
-		launchApplication();
+		//launchApplication();
 		//Full  / Static / Absolute  xpath
 		// /html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button/span
 		//driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[2]/div/div/div[1]/div/button/span")).click();
-		driver.findElement(By.xpath("//span[text()='Create account']")).click();
+		//driver.findElement(By.xpath("//span[text()='Create account']")).click();
+		driver.findElement(By.xpath("//span[@class='VfPpkd-vQzf8d' and text()='Create account']")).click();
 		/*
 		 * List<WebElement> elements =
 		 * driver.findElements(By.className("VfPpkd-vQzf8d"));
@@ -105,7 +126,7 @@ public class GmailAutomation
 	@Test
 	public void forgotEmail() throws InterruptedException
 	{
-		launchApplication();
+		//launchApplication();
 		//driver.findElement(By.tagName("button")).click(); //Forgot email?
 		driver.findElement(By.xpath("//button[@jsname='Cuz2Ue']")).click();
 		/*
@@ -120,7 +141,7 @@ public class GmailAutomation
 	@Test
 	public void learnMore() throws InterruptedException
 	{
-		launchApplication();
+		//launchApplication();
 		//driver.findElement(By.linkText("Learn more")).click();
 		//driver.findElement(By.partialLinkText("Learn")).click();
 		//driver.findElement(By.tagName("button")).click(); //Forgot email?
