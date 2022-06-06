@@ -1,6 +1,8 @@
 package mySelenium;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +20,13 @@ public class ApsrtcAutomation
 	String expectedTitle = "APSRTC Official Website for Online Bus Ticket Booking - APSRTConline.in";
 	ChromeDriver driver;
 	Actions actions;
+	AppUtilities appUtils;
 	public ApsrtcAutomation()
 	{
 		System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\JarFiles\\chromedriver-win32-90\\chromedriver.exe");
 		driver = new ChromeDriver(); //it will open an empty browser  //1234
 		actions = new Actions(driver);  //1234
+		appUtils = new AppUtilities(driver); //1234
 	}
 	//*****************XPATHS*******************
 	String sourceXpath = "//input[@name='source']";
@@ -48,38 +52,30 @@ public class ApsrtcAutomation
 		WebElement fromCity = driver.findElement(By.xpath("//input[@name='source']"));
 		actions.moveToElement(fromCity).click().sendKeys("HYDERABAD").pause(Duration.ofSeconds(1)).sendKeys(Keys.ENTER).doubleClick().contextClick().build().perform();
 	}
-	//************************************
-	public void clickEnter()
-	{
-		actions.sendKeys(Keys.ENTER).build().perform();
-	}
-	public void clickTab()
-	{
-		actions.sendKeys(Keys.TAB).build().perform();
-	}	
-	public void doubleClick(WebElement element)
-	{
-		actions.moveToElement(element).doubleClick().build().perform();
-	}
-	public void rightClick(WebElement element)
-	{
-		actions.moveToElement(element).contextClick().build().perform();
-	}
-	public void clickElement(String myxpath)
-	{
-		driver.findElement(By.xpath(myxpath)).click();
-	}
-	public void enterText(String myxpath,String txt)
-	{
-		driver.findElement(By.xpath(myxpath)).sendKeys(txt);
-	}
+	
+	//NoSuchSessionException: Session ID is null
 	//*************************************************
 	@Test
-	public void workWithMultipleWindows()
+	public void workWithMultipleWindows() throws InterruptedException
 	{
 		//driver.findElement(By.xpath("//a[@title='TimeTable / Track']")).click();
-		clickElement("//a[@title='TimeTable / Track']");
-		clickElement("//a[text()='All services Time Table & Tracking']");
+		appUtils.clickElement("//a[@title='TimeTable / Track']");
+		appUtils.clickElement("//a[text()='All services Time Table & Tracking']");
+		Set<String> windows = driver.getWindowHandles();
+		ArrayList<String> mywindows = new ArrayList<String>(windows);
+		for(int i=0;i<mywindows.size();i++)
+		{
+			System.out.println("my session IDs :"+ mywindows.get(i));
+		}
+		driver.switchTo().window(mywindows.get(1));
+		System.out.println("Title second window : " + driver.getTitle());
+		//driver.close(); // it will close the current active window
+		//driver.quit(); // it will close all windows . Kill the process from task manager , and session ID will be null
+		driver.switchTo().window(mywindows.get(0));
+		System.out.println("Title first window : " + driver.getTitle());
+		Thread.sleep(1000);
+		appUtils.clickElement("//a[@title='Home']");
+		driver.quit();
 	}	
 	
 	@Test
@@ -87,17 +83,17 @@ public class ApsrtcAutomation
 	{
 		System.out.println("Test Case : Book Bus Ticket");
 		//driver.findElement(By.xpath("//input[@name='source']")).sendKeys("HYDERABAD");
-		enterText(sourceXpath,"HYDERABAD");
+		appUtils.enterText(sourceXpath,"HYDERABAD");
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
-		clickEnter();
+		appUtils.clickEnter();
 		driver.findElement(By.xpath("//input[@name='searchBtn']")).click();
 		driver.switchTo().alert().accept();
 		//driver.findElement(By.xpath("//input[@name='destination']")).sendKeys("GUNTUR");
-		enterText(destinationXpath,"GUNTUR");
+		appUtils.enterText(destinationXpath,"GUNTUR");
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
-		clickEnter();
+		appUtils.clickEnter();
 		//open calendar
 		driver.findElement(By.xpath("//input[@name='txtJourneyDate']")).click();
 		//select date of journey
