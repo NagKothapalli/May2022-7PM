@@ -1,7 +1,11 @@
 package mySelenium;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Set;
 
 import org.junit.Before;
@@ -33,19 +37,45 @@ public class ApsrtcAutomation
 	String destinationXpath = "//input[@name='destination']";
 	//******************************************
 	@Before
-	public void launchApplication() throws InterruptedException
+	public void launchApplication() throws InterruptedException, IOException
 	{
 		System.out.println("RC : Launch Application");
 		//open an empty browser		
 		//Every browser window will have a unique session ID 
 		//call the url
-		driver.get("https://www.apsrtconline.in/");
-		String url = driver.getCurrentUrl();
-		System.out.println("My url :" + url);
+		String url = readData("URL");
+		driver.get(url);
+		//driver.get("https://www.apsrtconline.in/");
+		String url2 = driver.getCurrentUrl();
+		System.out.println("My url :" + url2);
 		String currentTitle = driver.getTitle();
 		System.out.println("my title :" + currentTitle);
 		Assert.assertEquals(expectedTitle, currentTitle);
 	}
+	//****************Read Data from Properties file*************************
+	@Test
+	public void readPropertiesFile() throws IOException
+	{
+		FileInputStream myfile = new FileInputStream("TestData/Apsrtc.properties"); //News Paper
+		Properties prop = new Properties(); // News Reader
+		prop.load(myfile);
+		String myurl = prop.getProperty("URL");
+		System.out.println(myurl);
+		System.out.println(prop.getProperty("FromCity"));
+		System.out.println(prop.getProperty("ToCity"));
+		System.out.println(prop.getProperty("JDate"));
+	}
+	
+	public String readData(String mykey) throws IOException
+	{
+		FileInputStream myfile = new FileInputStream("TestData/Apsrtc.properties"); //News Paper
+		Properties prop = new Properties(); // News Reader
+		prop.load(myfile);
+		return prop.getProperty(mykey);		
+	}
+	
+	//************************************************************************
+	
 	@Test
 	public void mouseAndKeyBoardActions()
 	{
@@ -79,25 +109,26 @@ public class ApsrtcAutomation
 	}	
 	
 	@Test
-	public void bookBusTicket() throws InterruptedException
+	public void bookBusTicket() throws InterruptedException, IOException
 	{
 		System.out.println("Test Case : Book Bus Ticket");
 		//driver.findElement(By.xpath("//input[@name='source']")).sendKeys("HYDERABAD");
-		appUtils.enterText(sourceXpath,"HYDERABAD");
+		appUtils.enterText(sourceXpath,readData("FromCity"));
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
 		appUtils.clickEnter();
 		driver.findElement(By.xpath("//input[@name='searchBtn']")).click();
 		driver.switchTo().alert().accept();
 		//driver.findElement(By.xpath("//input[@name='destination']")).sendKeys("GUNTUR");
-		appUtils.enterText(destinationXpath,"GUNTUR");
+		//appUtils.enterText(destinationXpath,"GUNTUR");
+		appUtils.enterText(destinationXpath,readData("ToCity"));
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
 		appUtils.clickEnter();
 		//open calendar
 		driver.findElement(By.xpath("//input[@name='txtJourneyDate']")).click();
 		//select date of journey
-		selectDate("14");
+		selectDate(readData("JDate"));
 		driver.findElement(By.xpath("//input[@name='searchBtn']")).click();
 	}
 	
