@@ -18,19 +18,21 @@ import org.openqa.selenium.interactions.Actions;
 
 import junit.framework.Assert;
 
-public class ApsrtcAutomation
+public class ApsrtcAutomation //extends ReadProperties
 {
 
 	String expectedTitle = "APSRTC Official Website for Online Bus Ticket Booking - APSRTConline.in";
 	ChromeDriver driver;
 	Actions actions;
 	AppUtilities appUtils;
+	ReadProperties prop;
 	public ApsrtcAutomation()
 	{
 		System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\JarFiles\\chromedriver-win32-90\\chromedriver.exe");
 		driver = new ChromeDriver(); //it will open an empty browser  //1234
 		actions = new Actions(driver);  //1234
 		appUtils = new AppUtilities(driver); //1234
+		prop = new ReadProperties("TestData/Apsrtc.properties");
 	}
 	//*****************XPATHS*******************
 	String sourceXpath = "//input[@name='source']";
@@ -43,7 +45,7 @@ public class ApsrtcAutomation
 		//open an empty browser		
 		//Every browser window will have a unique session ID 
 		//call the url
-		String url = readData("URL");
+		String url = prop.readData("URL");
 		driver.get(url);
 		//driver.get("https://www.apsrtconline.in/");
 		String url2 = driver.getCurrentUrl();
@@ -52,6 +54,7 @@ public class ApsrtcAutomation
 		System.out.println("my title :" + currentTitle);
 		Assert.assertEquals(expectedTitle, currentTitle);
 	}
+	//WebElement : click , clear , sendKeys , getText , getAttribute
 	//****************Read Data from Properties file*************************
 	@Test
 	public void readPropertiesFile() throws IOException
@@ -66,13 +69,7 @@ public class ApsrtcAutomation
 		System.out.println(prop.getProperty("JDate"));
 	}
 	
-	public String readData(String mykey) throws IOException
-	{
-		FileInputStream myfile = new FileInputStream("TestData/Apsrtc.properties"); //News Paper
-		Properties prop = new Properties(); // News Reader
-		prop.load(myfile);
-		return prop.getProperty(mykey);		
-	}
+	
 	
 	//************************************************************************
 	
@@ -106,14 +103,18 @@ public class ApsrtcAutomation
 		Thread.sleep(1000);
 		appUtils.clickElement("//a[@title='Home']");
 		driver.quit();
-	}	
-	
+	}
+	//WebDriver : get , getTitle , getUrl , windowHandle , windowHandles , switchTo - alert, window , frame ,findElement , findElements
+	    //manage , minimize , maximize 
+	//By : id, name , class , linkText , partialLinkText , tagName , xpath - absolute , relative , dynamic
+	//WebElement : click , clear , sendKeys , getText , getAttribute , isDisplayed , isEnabled , findElement , findElements
+	//Actions : Enter , Tab , doubleClick , rightCLick , movetoElement
 	@Test
 	public void bookBusTicket() throws InterruptedException, IOException
 	{
 		System.out.println("Test Case : Book Bus Ticket");
 		//driver.findElement(By.xpath("//input[@name='source']")).sendKeys("HYDERABAD");
-		appUtils.enterText(sourceXpath,readData("FromCity"));
+		appUtils.enterText(sourceXpath,prop.readData("FromCity"));
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
 		appUtils.clickEnter();
@@ -121,15 +122,49 @@ public class ApsrtcAutomation
 		driver.switchTo().alert().accept();
 		//driver.findElement(By.xpath("//input[@name='destination']")).sendKeys("GUNTUR");
 		//appUtils.enterText(destinationXpath,"GUNTUR");
-		appUtils.enterText(destinationXpath,readData("ToCity"));
+		appUtils.enterText(destinationXpath,prop.readData("ToCity"));
 		Thread.sleep(1000);
 		//actions.sendKeys(Keys.ENTER).build().perform();
 		appUtils.clickEnter();
 		//open calendar
 		driver.findElement(By.xpath("//input[@name='txtJourneyDate']")).click();
 		//select date of journey
-		selectDate(readData("JDate"));
+		selectDate(prop.readData("JDate"));
 		driver.findElement(By.xpath("//input[@name='searchBtn']")).click();
+		Thread.sleep(2000);
+		WebElement modifySearchBtn = driver.findElement(By.xpath("//a[@class='modifyBkgCS']"));
+		//modifySearchBtn.isDisplayed();
+		//modifySearchBtn.isEnabled();
+		String txt = modifySearchBtn.getText();
+		Assert.assertTrue(modifySearchBtn.isDisplayed());
+		Assert.assertTrue(modifySearchBtn.isEnabled());
+		Assert.assertEquals("Modify Search", txt.trim());
+		String id = modifySearchBtn.getAttribute("id");
+		Assert.assertEquals("sbk", id.trim());
+	}
+	
+	@Test
+	public void bookBusTicket_DataDriven() throws InterruptedException, IOException
+	{
+		String[] fcities = prop.readData("FromCities").split(",");
+		String[] tcities = prop.readData("ToCities").split(",");
+		String[] jDates = prop.readData("JDates").split(",");
+		for(int i=0;i<fcities.length;i++)
+		{
+			System.out.println("Test Case : Book Bus Ticket");
+			appUtils.enterText(sourceXpath,fcities[i]);
+			Thread.sleep(1000);
+			appUtils.clickEnter();
+			appUtils.enterText(destinationXpath,tcities[i]);
+			Thread.sleep(1000);
+			appUtils.clickEnter();
+			driver.findElement(By.xpath("//input[@name='txtJourneyDate']")).click();
+			//select date of journey
+			selectDate(jDates[i]);
+			driver.findElement(By.xpath("//input[@name='searchBtn']")).click();
+			Thread.sleep(2000);
+			appUtils.clickElement("//a[@title='Home']");
+		}		
 	}
 	
 	public void selectDate(String jDate)
